@@ -1,0 +1,103 @@
+table categoria
+{
+  cod_categoria char(6) [primary key]
+  nombre char (30) [not null]
+}
+ 
+table producto
+{
+  íd_producto char(6) [primary key]
+  descripcion varchar(100)
+  precio_venta decimal
+  stock_minimo integer
+  stock_actual integer
+  cod_categoria char(6)
+  cod_sede char(30)
+}
+ 
+table detalleboleta
+{
+  num_boleta char(15) [primary key]
+  id_producto varchar(6)
+  cantidad varchar(30)
+  importe varchar(30)
+}
+ 
+table boleta
+{
+  num_boleta char(15) [primary key]
+  fecha_emi int
+  id_cliente varchar(30)
+  cod_emple varchar(30)
+  estado_boleta varchar(30)
+}
+ 
+table cliente
+{
+  íd_cliente char(15) [primary key]
+  nombres varchar(30)
+  apellidos varchar(30)
+  telefono char(9)
+  id_direccion varchar(30)
+  email varchar(30)
+}
+ 
+table direccion
+{
+  íd_direccion char(15) [primary key]
+  departamento varchar(30)
+  provincia varchar(30)
+  detalledireccion varchar(30)
+  referencia varchar(30)
+}
+ 
+table empleado
+{
+cod_emple char(15) [primary key]
+nombres varchar(30)
+apellidos varchar(30)
+dni_emple varchar(8)
+estado_civil varchar(30)
+nivel_edu varchar(30)
+telefono char(9)
+fecha_ingreso varchar(30)
+cod_sede char(30)
+id_direccion varchar(30)
+cod_cargo varchar(30)
+}
+ 
+table cargos
+{
+  cod_cargo char(15) [primary key]
+  nombre_cargo varchar(30)
+  sueldo_basico varchar(30)
+}
+ 
+table sede
+{
+  cod_sede char(30) [primary key]
+  m2 varchar(30)
+  aforo varchar(30)
+  n_pisos varchar(30)
+}
+ 
+ 
+Ref: "categoria"."cod_categoria" < "producto"."cod_categoria"
+ 
+Ref: "cliente"."íd_cliente" < "boleta"."id_cliente"
+ 
+Ref: "producto"."íd_producto" < "detalleboleta"."id_producto"
+ 
+Ref: "cliente"."id_direccion" < "direccion"."íd_direccion"
+ 
+Ref: "empleado"."cod_cargo" < "cargos"."cod_cargo"
+ 
+Ref: "empleado"."cod_emple" < "boleta"."cod_emple"
+ 
+Ref: "direccion"."íd_direccion" < "empleado"."id_direccion"
+ 
+Ref: "sede"."cod_sede" < "producto"."cod_sede"
+ 
+Ref: "detalleboleta"."importe" < "boleta"."id_cliente"
+ 
+Ref: "sede"."cod_sede" < "empleado"."cod_sede"
